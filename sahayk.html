@@ -1,0 +1,1251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Sahayak Prototype: Digital Interface Flow&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f7f9fb;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#app-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 480px; /* Mobile-first container width */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.scheme-card, .service-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s, box-shadow 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.scheme-card:hover, .service-card:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 60vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.ai-message {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e5e7eb; /* Light gray */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 1.5rem 1.5rem 1.5rem 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 80%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.user-message {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #4f46e5; /* Indigo */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 1.5rem 1.5rem 0.5rem 1.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 80%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-self: flex-end;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="app-container" class="relative"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Header: Added Global Home Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;header class="p-4 border-b border-gray-200 sticky top-0 bg-white z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="navigateTo(screens.MAIN_MENU)" class="text-indigo-600 hover:text-indigo-800 transition duration-300 p-1 rounded-full bg-gray-50 shadow-md" aria-label="Go to Main Menu"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h1 class="text-xl font-bold text-indigo-700 ml-3 flex-grow text-center"&gt;Sahayak &lt;span class="text-sm font-normal text-gray-500"&gt;(Digital Assistant)&lt;/span&gt;&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-6 h-6"&gt;&lt;/div&gt; &lt;!-- Spacer for alignment --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Main Screen Content Area --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;main id="screen-content" class="flex-grow p-4 overflow-y-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Content will be injected here by JavaScript --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Fixed Footer for Actions --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;footer class="p-4 border-t border-gray-200 sticky bottom-0 bg-white z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="main-action-button" class="w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300 hidden" onclick="handleMainAction()"&gt;Next&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/footer&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Jargon Help Modal (Hidden by default) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="jargon-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-20"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-center mb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 id="modal-title" class="text-xl font-bold text-indigo-700"&gt;&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="text-gray-400 hover:text-gray-600" onclick="closeModal()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"&gt;&lt;/path&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p id="modal-content" class="text-gray-700 text-sm mb-4"&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- CONSTANTS AND INITIAL STATE ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const APP_ID = typeof __app_id !== 'undefined' ? __app_id : 'sahayak-app-flow-default';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const screens = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>WELCOME: 1,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>MAIN_MENU: 2,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>BANKING_MENU: 3,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>SCHEME_INTAKE: 4,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>SCHEME_RECOMMENDATION: 5,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>FORM_FILLING: 6,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>REVIEW_SUBMIT: 7,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>CONFIRMATION: 8,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentStage = screens.WELCOME;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- LANGUAGE PACK (Dynamic Translation Data) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const languagePack = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'English': {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>welcome: "Welcome to Sahayak!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tagline: "I am your AI assistant to help you access government benefits and financial services easily.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_language: "Select Your Language:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>speak_need: "Tap to speak your need",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>privacy_policy: "About Sahayak &amp; Privacy Policy",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>main_menu: "Main Menu",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>greeting: "Namaste! What help do you need today?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_title: "Scheme &amp; Benefits Assistant",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_desc: "Find recommended schemes, check eligibility, and start the application process.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_title: "Banking, Loans, &amp; Financial Help",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_desc: "Guidance on opening bank accounts, applying for micro-loans, and financial literacy tools.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_anything: '"Ask Anything" Input',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_placeholder: "e.g., I need a farm loan",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>need_help: "Need Help?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_to_menu: "Go to Main Menu",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next: "Next",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>back_to_menu: "Back to Main Menu",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>see_recommendations: "See Recommendations",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_requirement: "Change My Requirement",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_services: "Banking &amp; Financial Services",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_help_q: "What financial help are you looking for today?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account: "Open Basic Savings Account",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account_desc: "Start a conversational application for a new bank account (e.g., Jan Dhan).",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan: "Apply for Micro-Loan (Business/Farm)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan_desc: "Check eligibility and apply for small, targeted loans.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools: "Financial Literacy Tools",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools_desc: "Learn about budgeting, savings, and digital payments.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_h: "Scheme Recommendation Intake",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_p: "To recommend the best schemes, please tell us about your primary requirement.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_question: "What is your primary requirement for seeking government aid?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_example: "e.g., Financial support for farming, Housing loan, Pension for elderly",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recommended_schemes: "Recommended Schemes",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>based_on_req: "Based on your requirement for:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>search_schemes: "Search schemes (e.g., PM-KISAN)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_to_start: "Select to start application",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_for: "Application for",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fields_complete: "fields complete",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_greeting: "Great! Let's complete the form for the",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type_answer: "Type your answer here...",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>save_progress: "Save Progress",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>exit_to_menu: "Exit to Main Menu",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_submit: "Review &amp; Submission",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_prompt: "Please review your answers before secure submission for the",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_question: "Question",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_simple_answer: "Your Answer (Simple)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_mapped_data: "Mapped Data (Complex)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_action: "Action",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>edit: "Edit",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>complete_app: "Complete Application",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data_consent: "Data Privacy Confirmation:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>consent_text: "I consent to Sahayak securely encrypting and transmitting this data for form completion, adhering to the Privacy Policy.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_back_form: "Go back to Form",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_complete: "Application Complete!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_submitted: "Your application for the [SCHEME_NAME] has been securely submitted.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_steps: "Next Steps:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_1: "You will receive an update via SMS/WhatsApp within 5-7 working days.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_2: "Keep your application reference number handy (Ref: SAHY-2025-10###).",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact: "Tangible Social Impact",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact_msg: "to successfully enroll in a scheme using Sahayak!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return_to_menu: "Return to Main Menu",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_name: "Sahayak",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_language: "Change Language",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Hindi': {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>welcome: "सहायक में आपका स्वागत है!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tagline: "मैं सरकारी लाभ और वित्तीय सेवाओं तक आसानी से पहुँचने में आपकी मदद करने वाला AI सहायक हूँ।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_language: "अपनी भाषा चुनें:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>speak_need: "अपनी आवश्यकता बताने के लिए टैप करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>privacy_policy: "सहायक और गोपनीयता नीति के बारे में",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>main_menu: "मुख्य मेनू",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>greeting: "नमस्ते! आज आपको क्या मदद चाहिए?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_title: "योजना एवं लाभ सहायक",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_desc: "सिफारिश की गई योजनाओं को खोजें, पात्रता जांचें और आवेदन प्रक्रिया शुरू करें।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_title: "बैंकिंग, ऋण, और वित्तीय सहायता",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_desc: "बैंक खाता खोलने, सूक्ष्म-ऋण के लिए आवेदन करने और वित्तीय साक्षरता उपकरणों पर मार्गदर्शन।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_anything: '"कुछ भी पूछें" इनपुट',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_placeholder: "उदाहरण: मुझे कृषि ऋण चाहिए",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>need_help: "सहायता चाहिए?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_to_menu: "मुख्य मेनू पर जाएं",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next: "आगे बढ़ें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>back_to_menu: "मुख्य मेनू पर वापस",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>see_recommendations: "सिफारिशें देखें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_requirement: "मेरी आवश्यकता बदलें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_services: "बैंकिंग एवं वित्तीय सेवाएँ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_help_q: "आज आपको कौन सी वित्तीय सहायता चाहिए?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account: "मूल बचत खाता खोलें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account_desc: "एक नए बैंक खाते (जैसे जन धन) के लिए संवादात्मक आवेदन शुरू करें।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan: "सूक्ष्म-ऋण के लिए आवेदन करें (व्यवसाय/कृषि)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan_desc: "पात्रता जांचें और छोटे, लक्षित ऋणों के लिए आवेदन करें।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools: "वित्तीय साक्षरता उपकरण",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools_desc: "बचत, बचत और डिजिटल भुगतान के बारे में जानें।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_h: "योजना सिफारिश हेतु इनपुट",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_p: "सर्वोत्तम योजनाओं की सिफारिश करने के लिए, कृपया हमें अपनी प्राथमिक आवश्यकता बताएं।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_question: "सरकारी सहायता के लिए आपकी प्राथमिक आवश्यकता क्या है?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_example: "उदा. खेती के लिए वित्तीय सहायता, आवास ऋण, बुजुर्गों के लिए पेंशन",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recommended_schemes: "सिफारिश की गई योजनाएँ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>based_on_req: "आपकी आवश्यकता के आधार पर:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>search_schemes: "योजनाएं खोजें (उदा. पीएम-किसान)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_to_start: "आवेदन शुरू करने के लिए चुनें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_for: "के लिए आवेदन",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fields_complete: "फ़ील्ड पूरे",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_greeting: "बढ़िया! आइए, फॉर्म को पूरा करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type_answer: "अपना जवाब यहाँ टाइप करें...",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>save_progress: "प्रगति सहेजें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>exit_to_menu: "मुख्य मेनू से बाहर निकलें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_submit: "समीक्षा और जमा करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_prompt: "सुरक्षित जमा करने से पहले अपने उत्तरों की समीक्षा करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_question: "प्रश्न",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_simple_answer: "आपका उत्तर (सरल)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_mapped_data: "मैप किया गया डेटा (जटिल)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_action: "कार्रवाई",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>edit: "संपादित करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>complete_app: "आवेदन पूरा करें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data_consent: "डेटा गोपनीयता पुष्टि:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>consent_text: "मैं गोपनीयता नीति का पालन करते हुए, फॉर्म को पूरा करने के लिए इस डेटा को सुरक्षित रूप से एन्क्रिप्ट और संचारित करने के लिए सहायक को सहमति देता हूँ।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_back_form: "फॉर्म पर वापस जाएं",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_complete: "आवेदन सफल!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_submitted: "के लिए आपका आवेदन सुरक्षित रूप से जमा कर दिया गया है।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_steps: "अगले चरण:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_1: "आपको 5-7 कार्य दिवसों के भीतर SMS/WhatsApp के माध्यम से अपडेट प्राप्त होगा।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_2: "अपने आवेदन संदर्भ संख्या को संभाल कर रखें (संदर्भ: SAHY-2025-10###)。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact: "ठोस सामाजिक प्रभाव",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact_msg: "सहायक का उपयोग करके सफलतापूर्वक योजना में नामांकन करने वाले।",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return_to_menu: "मुख्य मेनू पर लौटें",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_name: "सहायक",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_language: "भाषा बदलें",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Tamil': {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>welcome: "சஹாயக்கிற்கு வரவேற்கிறோம்!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tagline: "அரசு சலுகைகள் மற்றும் நிதிச் சேவைகளை எளிதாக அணுக உதவும் AI உதவியாளர் நான்.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_language: "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>speak_need: "உங்கள் தேவையைக் கூற தட்டவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>privacy_policy: "சஹாயக் மற்றும் தனியுரிமைக் கொள்கை பற்றி",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>main_menu: "முதன்மை மெனு",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>greeting: "வணக்கம்! இன்று உங்களுக்கு என்ன உதவி வேண்டும்?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_title: "திட்டம் மற்றும் பலன்கள் உதவியாளர்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_desc: "பரிந்துரைக்கப்பட்ட திட்டங்களைக் கண்டறியவும், தகுதியைச் சரிபார்க்கவும் மற்றும் விண்ணப்ப செயல்முறையைத் தொடங்கவும்.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_title: "வங்கி, கடன்கள் மற்றும் நிதி உதவி",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_desc: "வங்கி கணக்கு தொடங்குதல், மைக்ரோ-கடன் விண்ணப்பம் மற்றும் நிதி அறிவு கருவிகள் பற்றிய வழிகாட்டுதல்.",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_anything: '"எதுவும் கேளுங்கள்" உள்ளீடு',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_placeholder: "எ.கா. எனக்கு விவசாயக் கடன் வேண்டும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>need_help: "உதவி வேண்டுமா?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_to_menu: "முதன்மை மெனுவுக்குச் செல்லவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next: "அடுத்து",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>back_to_menu: "முதன்மை மெனுவுக்குத் திரும்பு",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>see_recommendations: "பரிந்துரைகளைப் பார்க்கவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_requirement: "எனது தேவையை மாற்றவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_services: "வங்கி மற்றும் நிதிச் சேவைகள்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_help_q: "இன்று உங்களுக்கு என்ன நிதி உதவி தேவை?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account: "அடிப்படை சேமிப்புக் கணக்கைத் திறக்கவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account_desc: "புதிய வங்கிக் கணக்கிற்கு (எ.கா. ஜன் தன்) ஒரு உரையாடல் விண்ணப்பத்தைத் தொடங்கவும்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan: "மைக்ரோ-கடன் விண்ணப்பம் (வணிகம்/பண்ணை)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan_desc: "தகுதியைச் சரிபார்த்து, சிறிய, இலக்கு கடன்களுக்கு விண்ணப்பிக்கவும்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools: "நிதி அறிவு கருவிகள்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools_desc: "சேமிப்பு, வரவு செலவு மற்றும் டிஜிட்டல் கொடுப்பனவுகள் பற்றி அறியவும்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_h: "திட்டப் பரிந்துரை உள்ளீடு",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_p: "சிறந்த திட்டங்களைப் பரிந்துரைக்க, உங்கள் முதன்மைத் தேவையை எங்களுக்குத் தெரிவிக்கவும்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_question: "அரசு உதவி தேடும் உங்கள் முதன்மைத் தேவை என்ன?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_example: "எ.கா. விவசாயத்திற்கு நிதி உதவி, வீட்டுவசதி கடன், முதியோருக்கான ஓய்வூதியம்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recommended_schemes: "பரிந்துரைக்கப்பட்ட திட்டங்கள்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>based_on_req: "உங்கள் தேவையின் அடிப்படையில்:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>search_schemes: "திட்டங்களைத் தேடவும் (எ.கா. PM-KISAN)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_to_start: "விண்ணப்பத்தைத் தொடங்க தேர்ந்தெடுக்கவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_for: "க்கு விண்ணப்பம்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fields_complete: "புலங்கள் நிறைந்தது",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_greeting: "அருமை! க்கான படிவத்தை பூர்த்தி செய்வோம்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type_answer: "உங்கள் பதிலைத் இங்கே தட்டச்சு செய்யவும்...",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>save_progress: "முன்னேற்றத்தைச் சேமிக்கவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>exit_to_menu: "முதன்மை மெனுவில் இருந்து வெளியேறவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_submit: "மதிப்பாய்வு மற்றும் சமர்ப்பிப்பு",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_prompt: "பாதுகாப்பாகச் சமர்ப்பிக்கும் முன் உங்கள் பதில்களை மதிப்பாய்வு செய்யவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_question: "கேள்வி",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_simple_answer: "உங்கள் பதில் (எளிமையானது)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_mapped_data: "மேப் செய்யப்பட்ட தரவு (சிக்கலானது)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_action: "நடவடிக்கை",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>edit: "திருத்து",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>complete_app: "விண்ணப்பத்தை முடிக்கவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data_consent: "தரவு தனியுரிமை உறுதிப்படுத்தல்:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>consent_text: "தனியுரிமைக் கொள்கையைக் கடைப்பிடித்து, படிவத்தை பூர்த்தி செய்வதற்காக இந்தத் தரவை பாதுகாப்பாக குறியாக்கம் செய்து அனுப்ப சஹாயக்கிற்கு நான் சம்மதிக்கிறேன்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_back_form: "படிவத்துக்குத் திரும்பவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_complete: "விண்ணப்பம் நிறைவடைந்தது!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_submitted: "க்கான உங்கள் விண்ணப்பம் பாதுகாப்பாக சமர்ப்பிக்கப்பட்டுள்ளது。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_steps: "அடுத்த படிகள்:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_1: "5-7 வேலை நாட்களுக்குள் SMS/WhatsApp வழியாக உங்களுக்கு அறிவிப்பு அனுப்பப்படும்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_2: "உங்கள் விண்ணப்பக் குறிப்பு எண்ணை கையில் வைத்திருக்கவும் (குறிப்பு: SAHY-2025-10###)。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact: "உறுதியான சமூக தாக்கம்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact_msg: "சஹாயக் மூலம் வெற்றிகரமாகத் திட்டத்தில் சேர்ந்தவர்கள்。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return_to_menu: "முதன்மை மெனுவுக்குத் திரும்பவும்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_name: "சஹாயக்",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_language: "மொழியை மாற்றவும்",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Kannada': {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>welcome: "ಸಹಾಯಕ್‌ಗೆ ಸುಸ್ವಾಗತ!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>tagline: "ಸರ್ಕಾರಿ ಸೌಲಭ್ಯಗಳು ಮತ್ತು ಹಣಕಾಸು ಸೇವೆಗಳನ್ನು ಸುಲಭವಾಗಿ ಪ್ರವೇಶಿಸಲು ನಾನು ನಿಮ್ಮ AI ಸಹಾಯಕ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_language: "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>speak_need: "ನಿಮ್ಮ ಅಗತ್ಯವನ್ನು ಮಾತನಾಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>privacy_policy: "ಸಹಾಯಕ್ ಮತ್ತು ಗೌಪ್ಯತಾ ನೀತಿಯ ಬಗ್ಗೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>main_menu: "ಮುಖ್ಯ ಮೆನು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>greeting: "ನಮಸ್ಕಾರ! ಇಂದು ನಿಮಗೆ ಏನು ಸಹಾಯ ಬೇಕು?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_title: "ಯೋಜನೆ ಮತ್ತು ಪ್ರಯೋಜನಗಳ ಸಹಾಯಕ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_desc: "ಶಿಫಾರಸು ಮಾಡಿದ ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ, ಅರ್ಹತೆಯನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಅರ್ಜಿ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಪ್ರಾರಂಭಿಸಿ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_title: "ಬ್ಯಾಂಕಿಂಗ್, ಸಾಲಗಳು ಮತ್ತು ಹಣಕಾಸು ನೆರವು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_desc: "ಬ್ಯಾಂಕ್ ಖಾತೆ ತೆರೆಯುವಿಕೆ, ಸೂಕ್ಷ್ಮ-ಸಾಲಕ್ಕೆ ಅರ್ಜಿ ಮತ್ತು ಹಣಕಾಸು ಸಾಕ್ಷರತೆ ಸಾಧನಗಳ ಕುರಿತು ಮಾರ್ಗದರ್ಶನ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_anything: '"ಏನಾದರೂ ಕೇಳಿ" ಇನ್‌ಪುಟ್',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ask_placeholder: "ಉದಾ: ನನಗೆ ಕೃಷಿ ಸಾಲ ಬೇಕು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>need_help: "ಸಹಾಯ ಬೇಕೇ?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_to_menu: "ಮುಖ್ಯ ಮೆನುಗೆ ಹೋಗಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next: "ಮುಂದೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>back_to_menu: "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>see_recommendations: "ಶಿಫಾರಸುಗಳನ್ನು ನೋಡಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_requirement: "ನನ್ನ ಅಗತ್ಯವನ್ನು ಬದಲಾಯಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_services: "ಬ್ಯಾಂಕಿಂಗ್ ಮತ್ತು ಹಣಕಾಸು ಸೇವೆಗಳು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>banking_help_q: "ಇಂದು ನಿಮಗೆ ಯಾವ ಹಣಕಾಸು ನೆರವು ಬೇಕು?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account: "ಮೂಲ ಉಳಿತಾಯ ಖಾತೆ ತೆರೆಯಿರಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>open_account_desc: "ಹೊಸ ಬ್ಯಾಂಕ್ ಖಾತೆಗಾಗಿ (ಉದಾ. ಜನ್ ಧನ್) ಸಂವಾದಾತ್ಮಕ ಅಪ್ಲಿಕೇಶನ್ ಪ್ರಾರಂಭಿಸಿ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan: "ಸೂಕ್ಷ್ಮ-ಸಾಲಕ್ಕೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ (ವ್ಯಾಪಾರ/ಕೃಷಿ)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>apply_loan_desc: "ಅರ್ಹತೆಯನ್ನು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಸಣ್ಣ, ಉದ್ದೇಶಿತ ಸಾಲಗಳಿಗೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools: "ಹಣಕಾಸು ಸಾಕ್ಷರತಾ ಪರಿಕರಗಳು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>literacy_tools_desc: "ಉಳಿತಾಯ, ಬಜೆಟ್ ಮತ್ತು ಡಿಜಿಟಲ್ ಪಾವತಿಗಳ ಬಗ್ಗೆ ತಿಳಿಯಿರಿ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_h: "ಯೋಜನಾ ಶಿಫಾರಸು ಇನ್‌ಪುಟ್",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheme_intake_p: "ಉತ್ತಮ ಯೋಜನೆಗಳನ್ನು ಶಿಫಾರಸು ಮಾಡಲು, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಪ್ರಾಥಮಿಕ ಅಗತ್ಯವನ್ನು ನಮಗೆ ತಿಳಿಸಿ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_question: "ಸರ್ಕಾರಿ ನೆರವು ಪಡೆಯಲು ನಿಮ್ಮ ಪ್ರಾಥಮಿಕ ಅಗತ್ಯ ಏನು?",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>req_example: "ಉದಾ. ಕೃಷಿಗೆ ಆರ್ಥಿಕ ನೆರವು, ವಸತಿ ಸಾಲ, ಹಿರಿಯರಿಗೆ ಪಿಂಚಣಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>recommended_schemes: "ಸಿಫಾರಸು ಮಾಡಿದ ಯೋಜನೆಗಳು",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>based_on_req: "ನಿಮ್ಮ ಅಗತ್ಯವನ್ನು ಆಧರಿಸಿ:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>search_schemes: "ಯೋಜನೆಗಳನ್ನು ಹುಡುಕಿ (ಉದಾ. PM-KISAN)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>select_to_start: "ಅರ್ಜಿ ಪ್ರಾರಂಭಿಸಲು ಆಯ್ಕೆಮಾಡಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_for: "ಗಾಗಿ ಅರ್ಜಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>fields_complete: "ಕ್ಷೇತ್ರಗಳು ಪೂರ್ಣಗೊಂಡಿವೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>form_greeting: "ಉತ್ತಮ! ಫಾರ್ಮ್ ಅನ್ನು ಪೂರ್ಣಗೊಳಿಸೋಣ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type_answer: "ನಿಮ್ಮ ಉತ್ತರವನ್ನು ಇಲ್ಲಿ ಟೈಪ್ ಮಾಡಿ...",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>save_progress: "ಪ್ರಗತಿಯನ್ನು ಉಳಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>exit_to_menu: "ಮುಖ್ಯ ಮೆನುಗೆ ನಿರ್ಗಮಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_submit: "ಪರಿಶೀಲನೆ ಮತ್ತು ಸಲ್ಲಿಕೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>review_prompt: "ಸುರಕ್ಷಿತ ಸಲ್ಲಿಕೆಗೂ ಮೊದಲು ನಿಮ್ಮ ಉತ್ತರಗಳನ್ನು ಪರಿಶೀಲಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_question: "ಪ್ರಶ್ನೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_simple_answer: "ನಿಮ್ಮ ಉತ್ತರ (ಸರಳ)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_mapped_data: "ಮ್ಯಾಪ್ ಮಾಡಿದ ಡೇಟಾ (ಸಂಕೀರ್ಣ)",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>table_action: "ಕ್ರಿಯೆ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>edit: "ಸಂಪಾದಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>complete_app: "ಅರ್ಜಿ ಪೂರ್ಣಗೊಳಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>data_consent: "ಡೇಟಾ ಗೌಪ್ಯತೆ ದೃಢೀಕರಣ:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>consent_text: "ಗೌಪ್ಯತಾ ನೀತಿಗೆ ಬದ್ಧರಾಗಿ, ಫಾರ್ಮ್ ಪೂರ್ಣಗೊಳಿಸಲು ಈ ಡೇಟಾವನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಲು ಮತ್ತು ರವಾನಿಸಲು ನಾನು ಸಹಾಯಕ್‌ಗೆ ಸಮ್ಮತಿಸುತ್ತೇನೆ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>go_back_form: "ಫಾರ್ಮ್‌ಗೆ ಹಿಂತಿರುಗಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_complete: "ಅರ್ಜಿ ಸಂಪೂರ್ಣ!",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_submitted: "ಗಾಗಿ ನಿಮ್ಮ ಅರ್ಜಿಯನ್ನು ಸುರಕ್ಷಿತವಾಗಿ ಸಲ್ಲಿಸಲಾಗಿದೆ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_steps: "ಮುಂದಿನ ಹಂತಗಳು:",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_1: "ನಿಮಗೆ 5-7 ಕೆಲಸದ ದಿನಗಳಲ್ಲಿ SMS/WhatsApp ಮೂಲಕ ಅಪ್‌ಡೇಟ್ ಸಿಗಲಿದೆ。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>next_step_2: "ನಿಮ್ಮ ಅರ್ಜಿ ಉಲ್ಲೇಖ ಸಂಖ್ಯೆಯನ್ನು ಇಟ್ಟುಕೊಳ್ಳಿ (ಉಲ್ಲೇಖ: SAHY-2025-10###)。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact: "ಸ್ಪಷ್ಟ ಸಾಮಾಜಿಕ ಪರಿಣಾಮ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>social_impact_msg: "ಸಹಾಯಕ್ ಬಳಸಿಕೊಂಡು ಯಶಸ್ವಿಯಾಗಿ ಯೋಜನೆಗೆ ದಾಖಲಾದವರು。",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return_to_menu: "ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಿ",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>app_name: "ಸಹಾಯಕ್",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>change_language: "ಭಾಷೆ ಬದಲಾಯಿಸಿ",</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// For other languages, it will fall back to English</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Function to get translated text</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function t(key) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const lang = intakeData.language;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const translations = languagePack[lang] || languagePack['English'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return translations[key] || languagePack['English'][key] || `[${key}]`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- FORM FIELD DEFINITIONS ---</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Scheme fields use translation keys for prompts</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const schemeFormFields = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'dependents', prompt_key: 'prompt_dependents', jargon: 'Dependent', simpleAnswer: "Yes, I have two children.", mappedValue: "3" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'aadhaar', prompt_key: 'prompt_aadhaar', jargon: 'Aadhaar Card', simpleAnswer: "My Aadhaar is 1234-5678-9012.", mappedValue: "123456789012" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'bank', prompt_key: 'prompt_bank', jargon: 'Jan Dhan Account', simpleAnswer: "State Bank of India", mappedValue: "State Bank of India, Branch Delhi" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Banking fields use translation keys for prompts</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const bankingFormFields = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'income', prompt_key: 'prompt_income', jargon: 'Income Source', simpleAnswer: "Farming/Agriculture", mappedValue: "Self-Employed - Agriculture" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'aadhaar', prompt_key: 'prompt_aadhaar', jargon: 'Aadhaar Card', simpleAnswer: "1234-5678-9012", mappedValue: "123456789012" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'address', prompt_key: 'prompt_address', jargon: 'Address Proof', simpleAnswer: "Village XYZ, Post ABC", mappedValue: "Address Line 1: Village XYZ, Address Line 2: Post ABC" },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'loan_amount', prompt_key: 'prompt_loan', jargon: 'Loan Request', simpleAnswer: "50,000", mappedValue: "50000" },</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Add translated prompts to the language pack</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_dependents = "First question: Do you have any dependents (children, elderly parents) who rely on your income?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_dependents = "पहला प्रश्न: क्या आपके कोई आश्रित (बच्चे, बुजुर्ग माता-पिता) हैं जो आपकी आय पर निर्भर हैं?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_dependents = "முதல் கேள்வி: உங்கள் வருமானத்தை நம்பியுள்ள சார்ந்திருப்பவர்கள் (குழந்தைகள், வயதான பெற்றோர்கள்) உங்களுக்கு இருக்கிறார்களா?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_dependents = "ಮೊದಲ ಪ್ರಶ್ನೆ: ನಿಮ್ಮ ಆದಾಯದ ಮೇಲೆ ಅವಲಂಬಿತರಾಗಿರುವ ಯಾರಾದರೂ (ಮಕ್ಕಳು, ವೃದ್ಧ ಪೋಷಕರು) ನಿಮ್ಮ ಬಳಿ ಇದ್ದಾರೆಯೇ?";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_aadhaar = "Thank you. Please confirm your 12-digit Aadhaar Card number.";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_aadhaar = "धन्यवाद। कृपया अपना 12 अंकों का आधार कार्ड नंबर बताएं।";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_aadhaar = "நன்றி. உங்கள் 12 இலக்க ஆதார் அட்டை எண்ணை உறுதிப்படுத்தவும்.";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_aadhaar = "ಧನ್ಯವಾದಗಳು. ದಯವಿಟ್ಟು ನಿಮ್ಮ 12-ಅಂಕಿಯ ಆಧಾರ್ ಕಾರ್ಡ್ ಸಂಖ್ಯೆಯನ್ನು ದೃಢೀಕರಿಸಿ.";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_bank = "Last step! Please confirm the name of the bank where you hold your Jan Dhan Account.";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_bank = "अंतिम चरण! कृपया उस बैंक का नाम बताएं जहाँ आपका जन धन खाता है।";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_bank = "கடைசி படி! உங்கள் ஜன் தன் கணக்கு உள்ள வங்கியின் பெயரை உறுதிப்படுத்தவும்.";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_bank = "ಕೊನೆಯ ಹಂತ! ನಿಮ್ಮ ಜನ್ ಧன் ಖಾತೆ ಇರುವ ಬ್ಯಾಂಕಿನ ಹೆಸರನ್ನು ದೃಢೀಕರಿಸಿ.";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_income = "First, what is your primary source of income (e.g., farming, daily wages, small business)?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_income = "सबसे पहले, आपकी आय का प्राथमिक स्रोत क्या है (उदा. खेती, दिहाड़ी, छोटा व्यवसाय)?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_income = "முதலில், உங்கள் முதன்மை வருமான ஆதாரம் என்ன (எ.கா., விவசாயம், தினசரி கூலி, சிறு வணிகம்)?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_income = "ಮೊದಲಿಗೆ, ನಿಮ್ಮ ಆದಾಯದ ಪ್ರಾಥಮಿಕ ಮೂಲ ಯಾವುದು (ಉದಾ. ಕೃಷಿ, ದಿನಗೂಲಿ, ಸಣ್ಣ ವ್ಯಾಪಾರ)?";</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_address = "What is your current full village/town address?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_address = "आपका वर्तमान पूर्ण गांव/कस्बे का पता क्या है?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_address = "உங்கள் தற்போதைய முழு கிராமம்/நகர முகவரி என்ன?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_address = "ನಿಮ್ಮ ಪ್ರಸ್ತುತ ಸಂಪೂರ್ಣ ಗ್ರಾಮ/ನಗರ ವಿಳಾಸ ಯಾವುದು?";</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].prompt_loan = "How much loan amount are you requesting (in Rupees)?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].prompt_loan = "आप कितनी ऋण राशि (रुपये में) का अनुरोध कर रहे हैं?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].prompt_loan = "நீங்கள் எவ்வளவு கடன் தொகைக்கு (ரூபாயில்) விண்ணப்பிக்கிறீர்கள்?";</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].prompt_loan = "ನೀವು ಎಷ್ಟು ಸಾಲದ ಮೊತ್ತವನ್ನು (ರೂಪಾಯಿಗಳಲ್ಲಿ) ಕೋರುತ್ತಿದ್ದೀರಿ?";</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Jargon translation update</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].jargon_aadhaar_title = 'Aadhaar Card (Unique ID)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].jargon_aadhaar_title = 'आधार कार्ड (विशिष्ट पहचान पत्र)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].jargon_aadhaar_title = 'ஆதார் அட்டை (தனிப்பட்ட அடையாள அட்டை)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].jargon_aadhaar_title = 'ಆಧಾರ್ ಕಾರ್ಡ್ (ವಿಶಿಷ್ಟ ಐಡಿ)';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Scheme translation update</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const schemeData = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Added keywords for filtering</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'pm-kisan', name_key: 'scheme_pm_kisan', desc_key: 'desc_pm_kisan', keywords: ['farm', 'agriculture', 'kisan', 'crop', 'खेती', 'ವಿவசாயಂ', 'ಕೃಷಿ', 'loan', 'finance', 'ऋण', 'கடன்'], benefit: '₹6,000 per year', eligible: true, formType: 'scheme' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'jan-dhan', name_key: 'scheme_jan_dhan', desc_key: 'desc_jan_dhan', keywords: ['account', 'bank', 'savings', 'खाता', 'வங்கி', 'ಖಾತೆ', 'jan dhan', 'money', 'deposit'], benefit: 'Overdraft facility up to ₹10,00ee0', eligible: true, formType: 'scheme' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'housing', name_key: 'scheme_housing', desc_key: 'desc_housing', keywords: ['house', 'home', 'shelter', 'housing', 'आवास', 'வீட்டுவசதி', 'ವಸತಿ', 'loan', 'subsidy'], benefit: 'Variable subsidy', eligible: true, formType: 'scheme' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// NEW SCHEMES ADDED</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'skill-dev', name_key: 'scheme_skill_dev', desc_key: 'desc_skill_dev', keywords: ['education', 'skill', 'woman', 'training', 'girl', 'शिक्षा', 'கற்றல்', 'ಶಿಕ್ಷಣ', 'कौशल', 'job', 'employment', 'koushal'], benefit: 'Free course enrollment', eligible: true, formType: 'scheme' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>{ id: 'pension', name_key: 'scheme_pension', desc_key: 'desc_pension', keywords: ['pension', 'elderly', 'senior', 'old age', 'वृद्धावस्था', 'ஓய்வூதியம்', 'ಪಿಂಚಣಿ', 'security'], benefit: 'Monthly fixed income', eligible: true, formType: 'scheme' },</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].scheme_pm_kisan = 'PM-KISAN Yojana';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].scheme_pm_kisan = 'पीएम-किसान योजना';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].scheme_pm_kisan = 'பிஎம்-கிசான் யோஜனா';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].scheme_pm_kisan = 'ಪಿಎಂ-ಕಿಸಾನ್ ಯೋಜನೆ';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].desc_pm_kisan = 'Direct income support for farmer families.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].desc_pm_kisan = 'किसान परिवारों के लिए सीधा आय समर्थन।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].desc_pm_kisan = 'விவசாய குடும்பங்களுக்கு நேரடி வருமான ஆதரவு.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].desc_pm_kisan = 'ರೈತ ಕುಟುಂಬಗಳಿಗೆ ನೇರ ಆದಾಯ ಬೆಂಬಲ.';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].scheme_jan_dhan = 'Jan Dhan Account';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].scheme_jan_dhan = 'जन धन खाता';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].scheme_jan_dhan = 'ஜன் தன் கணக்கு';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].scheme_jan_dhan = 'ಜನ್ ಧನ್ ಖಾತೆ';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].desc_jan_dhan = 'Basic savings bank account for financial inclusion.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].desc_jan_dhan = 'वित्तीय समावेशन के लिए मूल बचत बैंक खाता।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].desc_jan_dhan = 'நிதி சேர்க்கைக்கான அடிப்படை சேமிப்பு வங்கிக் கணக்கு.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].desc_jan_dhan = 'ಹಣಕಾಸು ಸೇರ್ಪಡೆಗಾಗಿ ಮೂಲ ಉಳಿತಾಯ ಬ್ಯಾಂಕ್ ಖಾತೆ.';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].scheme_housing = 'State Housing Scheme';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].scheme_housing = 'राज्य आवास योजना';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].scheme_housing = 'மாநில வீட்டுவசதி திட்டம்';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].scheme_housing = 'ರಾಜ್ಯ ವಸತಿ ಯೋಜನೆ';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].desc_housing = 'Subsidized housing loans for economically weaker sections.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].desc_housing = 'आर्थिक रूप से कमजोर वर्गों के लिए रियायती आवास ऋण।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].desc_housing = 'பொருளாதாரத்தில் பலவீனமான பிரிவினருக்கான மானிய விலையில் வீட்டுவசதி கடன்கள்.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].desc_housing = 'ಆರ್ಥಿಕವಾಗಿ ದುರ್ಬಲ ವರ್ಗದವರಿಗೆ ಸಹಾಯಧನ ವಸತಿ ಸಾಲಗಳು.';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// NEW SCHEME TRANSLATIONS</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].scheme_skill_dev = 'National Skill Development Mission';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].scheme_skill_dev = 'राष्ट्रीय कौशल विकास मिशन';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].scheme_skill_dev = 'தேசிய திறன் மேம்பாட்டு இயக்கம்';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].scheme_skill_dev = 'ರಾಷ್ಟ್ರೀಯ ಕೌಶಲ್ಯ ಅಭಿವೃದ್ಧಿ ಮಿಷನ್';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].desc_skill_dev = 'Skill training and certification for youth and women.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].desc_skill_dev = 'युवाओं और महिलाओं के लिए कौशल प्रशिक्षण और प्रमाणन।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].desc_skill_dev = 'இளைஞர்கள் மற்றும் பெண்களுக்கான திறன் பயிற்சி மற்றும் சான்றிதழ்.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].desc_skill_dev = 'ಯುವಕರು ಮತ್ತು ಮಹಿಳೆಯರಿಗಾಗಿ ಕೌಶಲ್ಯ ತರಬೇತಿ ಮತ್ತು ಪ್ರಮಾಣೀಕರಣ.';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].scheme_pension = 'Atal Pension Yojana (APY)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].scheme_pension = 'अटल पेंशन योजना (APY)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].scheme_pension = 'அடல் பென்ஷன் யோஜனா (APY)';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].scheme_pension = 'ಅಟಲ್ ಪಿಂಚಣಿ ಯೋಜನೆ (APY)';</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].desc_pension = 'Provides social security for old age.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].desc_pension = 'बुढ़ापे के लिए सामाजिक सुरक्षा प्रदान करता है।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].desc_pension = 'முதுமைக்கான சமூக பாதுகாப்பை வழங்குகிறது.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].desc_pension = 'ವೃದ್ಧಾಪ್ಯಕ್ಕಾಗಿ ಸಾಮಾಜಿಕ ಭದ್ರತೆಯನ್ನು ಒದಗಿಸುತ್ತದೆ.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// END NEW SCHEME TRANSLATIONS</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Added message for no schemes found</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['English'].no_schemes_found = 'No direct scheme matches your request. Showing popular options.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Hindi'].no_schemes_found = 'आपकी आवश्यकता से मेल खाने वाली कोई सीधी योजना नहीं मिली। लोकप्रिय विकल्प दिखा रहे हैं।';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Tamil'].no_schemes_found = 'உங்கள் கோரிக்கையுடன் பொருந்தும் நேரடித் திட்டங்கள் எதுவும் இல்லை. பிரபலமான விருப்பங்களைக் காட்டுகிறது.';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>languagePack['Kannada'].no_schemes_found = 'ನಿಮ್ಮ ವಿನಂತಿಗೆ ನೇರವಾದ ಯೋಜನೆ ಹೊಂದಾಣಿಕೆ ಕಂಡುಬಂದಿಲ್ಲ. ಜನಪ್ರಿಯ ಆಯ್ಕೆಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ.';</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const jargonHelp = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Aadhaar Card': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'jargon_aadhaar_title',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'This is a unique 12-digit identification number issued by the government. &lt;span class="font-bold text-indigo-700"&gt;Locally Resonant Analogy:&lt;/span&gt; Think of it as your primary, all-in-one identity proof, essential for accessing all schemes.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Jan Dhan Account': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'Jan Dhan Account (Basic Bank Account)',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'This is a special zero-balance bank account designed for financial inclusion. &lt;span class="font-bold text-indigo-700"&gt;Locally Resonant Analogy:&lt;/span&gt; It is the secure pipe through which government benefits (like subsidies) are sent directly to you.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Dependent': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'Dependents',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'A dependent is a person who relies on you for financial support, usually a child, spouse, or elderly parent. The number helps determine scheme eligibility.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Income Source': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'Income Source',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'The origin of your money, such as farming, daily labor, or a small business. This information helps match you with appropriate financial products.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Address Proof': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'Address Proof',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'A document verifying your current living location (e.g., utility bill or ration card). Essential for all banking and scheme applications.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'Loan Request': {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>title_key: 'Loan Request',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>definition_en: 'The specific amount of money you are asking to borrow from the bank or financial institution.'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let intakeData = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>language: 'English',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>primaryRequirement: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Stores the current active set of form fields (scheme or banking)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentFormFields: schemeFormFields,<span class="Apple-converted-space"> </span></p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Stored answers (all fields across all flows are stored here)</p>
+<p class="p1"><span class="Apple-converted-space">            </span>dependents: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>aadhaar: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>bank: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>income: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>address: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>loan_amount: null,</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>chatQuestionIndex: 0,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>selectedScheme: { id: 'default', name: 'Default Scheme', description: 'Application' },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>privacyConsent: false,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DOM ELEMENTS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const contentDiv = document.getElementById('screen-content');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const mainActionButton = document.getElementById('main-action-button');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const jargonModal = document.getElementById('jargon-modal');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const modalTitle = document.getElementById('modal-title');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const modalContent = document.getElementById('modal-content');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- CORE NAVIGATION AND RENDERING ---</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/** Renders the content based on the current application stage. */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function render() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.textContent = t('next');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.disabled = false;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Update header language</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelector('h1 span').textContent = `(${t('app_name')} - ${t('Digital Assistant')})`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>switch (currentStage) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.WELCOME:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderWelcome();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.MAIN_MENU:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderMainMenu();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.BANKING_MENU: // New stage</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderBankingMenu();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.SCHEME_INTAKE:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderSchemeIntake();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.SCHEME_RECOMMENDATION:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderSchemeRecommendation();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.FORM_FILLING:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderFormFilling();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.REVIEW_SUBMIT:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderReviewAndSubmit();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>case screens.CONFIRMATION:</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderConfirmation();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Ensure the main content div is scrolled to the top on new screen</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.scrollTop = 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleMainAction() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (currentStage === screens.WELCOME) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>currentStage = screens.MAIN_MENU;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (currentStage === screens.REVIEW_SUBMIT) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (intakeData.privacyConsent) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>submitApplication();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>alertMessage(t('data_consent'), "Please check the box to consent to secure data transmission before submitting."); // Alert remains in English/Simple</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- UTILITY FUNCTIONS (Modal, Alert) ---</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function alertMessage(title, message) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>modalTitle.textContent = title;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>modalContent.innerHTML = `&lt;p class="text-gray-700"&gt;${message}&lt;/p&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>jargonModal.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function showJargonHelp(term) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const help = jargonHelp[term];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const title = t(help.title_key) || help.title_key;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Note: Jargon definitions are kept simple/English for prototype simplicity,<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// but in production, 'definition_en' would be language-keyed.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>modalTitle.textContent = title;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>modalContent.innerHTML = help.definition_en;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>jargonModal.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function closeModal() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>jargonModal.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 1: WELCOME SCREEN ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderWelcome() {</p>
+<p class="p1"><span class="Apple-converted-space">             </span>// Prioritized list of regional languages</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const regionalLanguages = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'English', label: 'English', core: true },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Hindi', label: 'हिन्दी', core: true },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Tamil', label: 'தமிழ்', core: true },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Kannada', label: 'ಕನ್ನಡ', core: true },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Marathi', label: 'मराठी', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Telugu', label: 'తెలుగు', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Bengali', label: 'বাংলা', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Gujarati', label: 'ગુજરાતી', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Odia', label: 'ଓଡ଼ିଆ', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Assamese', label: 'অসমীয়া', core: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: 'Other', label: t('Other (Voice Input)'), core: false }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const languageButtons = regionalLanguages.map(lang =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const isSelected = intakeData.language === lang.name ? 'bg-indigo-600 text-white shadow-md' : 'bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-50';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>let buttonHtml;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (lang.core) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Core languages use the normal selection logic</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>buttonHtml = `&lt;button onclick="selectLanguage('${lang.name}', event)" class="lang-btn py-3 rounded-lg font-semibold ${isSelected}"&gt;${lang.label}&lt;/button&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (lang.name !== 'Other') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Non-core languages look normal but trigger an alert when selected</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>buttonHtml = `&lt;button onclick="alertMessage('Language Not Fully Supported', 'For this prototype, only English, Hindi, Tamil, and Kannada are fully translated. The language will revert to English.')" class="lang-btn py-3 rounded-lg font-semibold ${isSelected}"&gt;${lang.label}&lt;/button&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// 'Other' language placeholder (assuming it's meant to be functional in a different way)</p>
+<p class="p1"><span class="Apple-converted-space">                     </span>buttonHtml = `&lt;button onclick="alertMessage('Other Languages', 'In a full application, selecting this would either use a general translation layer or prompt for more specific language input.')" class="lang-btn py-3 rounded-lg font-semibold ${isSelected}"&gt;${lang.label}&lt;/button&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>return buttonHtml;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}).join('');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-3xl font-extrabold text-gray-900"&gt;🏠 ${t('welcome')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mt-2 text-lg"&gt;${t('tagline')}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="block text-sm font-medium text-gray-700 mb-3"&gt;${t('select_language')}&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="language-selector" class="grid grid-cols-2 gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${languageButtons}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8 flex justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="bg-gray-100 p-4 rounded-full text-indigo-600 hover:bg-gray-200 transition duration-300 shadow-md" onclick="alertMessage('Voice Input Demo', 'This button would activate microphone input for complex queries.')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a4 4 0 00-4 4v2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm text-gray-500 ml-4 self-center"&gt;${t('speak_need')}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" onclick="alertMessage(t('privacy_policy'), 'Sahayak uses Responsible AI principles. Your PII is securely encrypted and never shared without consent.')" class="text-sm font-medium text-gray-500 hover:text-gray-700"&gt;${t('privacy_policy')}&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.textContent = t('go_to_menu');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function selectLanguage(lang, event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Check if the selected language has a translation pack</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!languagePack[lang]) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>lang = 'English'; // Fallback for demo languages</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.language = lang;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.lang-btn').forEach(btn =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>btn.className = 'lang-btn py-3 rounded-lg font-semibold bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-50';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event &amp;&amp; event.target.tagName === 'BUTTON') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>event.target.className = 'lang-btn py-3 rounded-lg font-semibold bg-indigo-600 text-white shadow-md';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Re-render the current screen to apply translations</p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 2: MAIN MENU ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderMainMenu() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let serviceCards = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: t('scheme_title'), icon: `&lt;svg class="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.27a9.001 9.001 0 01-11.854 11.854M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9"/&gt;&lt;/svg&gt;`, desc: t('scheme_desc'), action: () =&gt; navigateTo(screens.SCHEME_INTAKE) },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: t('banking_title'), icon: `&lt;svg class="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zM9 9h6m-3 3h3"/&gt;&lt;/svg&gt;`, desc: t('banking_desc'), action: () =&gt; navigateTo(screens.BANKING_MENU) },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>].map(card =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div onclick="(${card.action.toString()})()" class="service-card bg-white p-5 border border-indigo-100 rounded-xl shadow-md mb-4 hover:border-indigo-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${card.icon}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-gray-800 ml-3"&gt;${card.title}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 text-sm mt-1 ml-11"&gt;${card.desc}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-extrabold text-gray-900"&gt;🗺️ ${t('main_menu')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-indigo-600 mt-2 font-semibold"&gt;${t('greeting')} (${t('language')}: ${intakeData.language})&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${serviceCards}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-6 p-4 bg-gray-100 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="ask-anything-input" class="block text-sm font-semibold text-gray-700 mb-2"&gt;${t('ask_anything')}&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="ask-anything-input" placeholder="${t('ask_placeholder')}" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="alertMessage('AI Engine Demo', 'The AI Conversational Engine would interpret this intent and jump directly to the relevant Form Filling screen.')" class="flex-shrink-0 bg-indigo-600 p-3 rounded-lg text-white hover:bg-indigo-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4 text-center space-x-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="alertMessage('Support &amp; Feedback', 'This screen would provide contact options and a mechanism for user feedback.')" class="text-sm py-2 px-4 bg-white text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${t('need_help')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="navigateTo(screens.WELCOME)" class="text-sm py-2 px-4 bg-white text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${t('change_language')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 3: BANKING MENU (New) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderBankingMenu() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const bankingOptions = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: t('open_account'), icon: 'M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zM9 9h6m-3 3h3', desc: t('open_account_desc'), actionId: 'basic-account' },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: t('apply_loan'), icon: 'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V6m0 4v2m0 4v2', desc: t('apply_loan_desc'), actionId: 'micro-loan' },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ name: t('literacy_tools'), icon: 'M12 6.253v13M3.326 12C5.642 7.74 9.141 5.378 12 5.378c2.858 0 6.357 2.362 8.674 6.622-2.317 4.26-5.816 6.622-8.674 6.622-2.859 0-6.358-2.362-8.674-6.622z', desc: t('literacy_tools_desc'), actionId: 'literacy' }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>].map(option =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div onclick="selectBankingProduct('${option.actionId}', '${option.name}')" class="service-card bg-white p-5 border border-indigo-100 rounded-xl shadow-md mb-4 hover:border-indigo-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                         </span>&lt;svg class="w-8 h-8 text-indigo-600 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${option.icon}"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-gray-800 ml-3"&gt;${option.name}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 text-sm mt-1 ml-11"&gt;${option.desc}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-extrabold text-gray-900"&gt;🏦 ${t('banking_services')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mt-2"&gt;${t('banking_help_q')}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${bankingOptions}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" onclick="navigateTo(screens.MAIN_MENU)" class="text-sm font-semibold text-gray-500 hover:text-gray-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&amp;lt; ${t('back_to_menu')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function selectBankingProduct(productId, productName) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (productId === 'literacy') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alertMessage(t('literacy_tools'), t('literacy_tools_desc'));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set up form fields for the selected product</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let formFieldsToUse;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (productId === 'basic-account') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>formFieldsToUse = bankingFormFields.slice(0, 3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (productId === 'micro-loan') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>formFieldsToUse = bankingFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Clear previous user answers</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.income = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.aadhaar = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.address = null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.loan_amount = null;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set up application data for the core flow</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.currentFormFields = formFieldsToUse;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.selectedScheme = { id: productId, name: productName, description: productName, formType: 'banking' };</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Reset chat state</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.chatQuestionIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navigateTo(screens.FORM_FILLING);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 4: SCHEME INTAKE (New) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderSchemeIntake() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-extrabold text-gray-900"&gt;🔍 ${t('scheme_intake_h')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mt-2"&gt;${t('scheme_intake_p')}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-8 p-4 bg-indigo-50 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label for="requirement-input" class="block text-base font-semibold text-indigo-800 mb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${t('req_question')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-sm text-gray-600 mb-3"&gt;(${t('req_example')})&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="requirement-input" placeholder="${t('req_example').split(',')[0].replace('e.g., ', '').replace('उदा. ', '').trim()}" value="${intakeData.primaryRequirement || ''}" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button class="flex-shrink-0 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-600 transition duration-300" onclick="alertMessage('Voice Input Demo', 'This button would activate microphone input.')"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a4 4 0 00-4 4v2" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" onclick="navigateTo(screens.MAIN_MENU)" class="text-sm font-semibold text-gray-500 hover:text-gray-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&amp;lt; ${t('back_to_menu')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.textContent = t('see_recommendations');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.onclick = collectRequirementAndNavigate;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function collectRequirementAndNavigate() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const input = document.getElementById('requirement-input');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (input &amp;&amp; input.value.trim() !== '') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>intakeData.primaryRequirement = input.value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigateTo(screens.SCHEME_RECOMMENDATION);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alertMessage(t('req_question'), t('req_example'));<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 5: SCHEME RECOMMENDATION (Previously Scheme Selection) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderSchemeRecommendation() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const requirement = intakeData.primaryRequirement ? intakeData.primaryRequirement.toLowerCase() : '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let filteredSchemes = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (requirement) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Simple Keyword Matching Logic</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (const scheme of schemeData) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const match = scheme.keywords.some(keyword =&gt; requirement.includes(keyword));</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (match) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>filteredSchemes.push(scheme);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// If no schemes are filtered, show all of them and a notice.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let showNotice = false;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (filteredSchemes.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>filteredSchemes = schemeData;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showNotice = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let schemeCards = filteredSchemes.map(scheme =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const schemeName = t(scheme.name_key);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const schemeDesc = t(scheme.desc_key);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div onclick="selectScheme('${scheme.id}', '${schemeName}')" class="scheme-card bg-white p-5 border border-gray-200 rounded-xl shadow-sm mb-4 hover:border-green-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-gray-800"&gt;${schemeName}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-gray-600 text-sm mt-1"&gt;${schemeDesc}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-3 text-sm font-semibold text-green-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${t('select_to_start')}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}).join('');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let noticeHtml = showNotice ? `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-3 mb-4 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 rounded-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${t('no_schemes_found')}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>` : '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-extrabold text-gray-900"&gt;🎯 ${t('recommended_schemes')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mt-2"&gt;${t('based_on_req')} &lt;span class="font-semibold text-indigo-600"&gt;"${intakeData.primaryRequirement}"&lt;/span&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${noticeHtml}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="text" placeholder="${t('search_schemes')}" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${schemeCards}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" onclick="navigateTo(screens.SCHEME_INTAKE)" class="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&amp;lt; ${t('change_requirement')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function selectScheme(schemeId, schemeName) {</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set up application data for the core flow</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.currentFormFields = schemeFormFields; // Set to scheme specific fields</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.selectedScheme = { id: schemeId, name: schemeName, description: schemeName, formType: 'scheme' };</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Reset chat state</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.chatQuestionIndex = 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navigateTo(screens.FORM_FILLING);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 6: CONVERSATIONAL FORM FILLING (Previously Stage 5) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderFormFilling() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const formFields = intakeData.currentFormFields;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentChatIndex = intakeData.chatQuestionIndex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const chatHistory = getChatHistory(currentChatIndex);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentQuestion = formFields[currentChatIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const isFinished = currentChatIndex &gt;= formFields.length;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const progress = isFinished ? 100 : Math.min(100, Math.round((currentChatIndex / formFields.length) * 100));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let chatBubbles = chatHistory.map(msg =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const alignment = msg.speaker === 'user' ? 'justify-end' : 'justify-start';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const classType = msg.speaker === 'user' ? 'user-message' : 'ai-message';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Translate the AI prompt for display</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const displayText = msg.speaker === 'ai' ? t(msg.prompt_key) : msg.text;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Add Jargon Help Icon only to the latest AI question that hasn't been answered</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let jargonIcon = '';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (msg.speaker === 'ai' &amp;&amp; msg.jargon &amp;&amp; !isFinished &amp;&amp; msg.id === currentQuestion.id) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>jargonIcon = `</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="showJargonHelp('${msg.jargon}')" class="ml-2 text-yellow-300 hover:text-yellow-400 focus:outline-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex ${alignment} mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-3 text-sm shadow-md ${classType} flex items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${displayText}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${jargonIcon}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="sticky top-0 bg-white pt-1 pb-4 z-5 border-b border-gray-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between items-center mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h2 class="text-lg font-bold text-gray-800"&gt;🗣️ ${t('form_for')} ${intakeData.selectedScheme.name}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-sm text-gray-500"&gt;${currentChatIndex}/${formFields.length} ${t('fields_complete')}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Progress Indicator --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="w-full bg-gray-200 rounded-full h-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-indigo-600 h-2.5 rounded-full transition-all duration-500" style="width: ${progress}%;" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Chat Bubbles --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="chat-bubbles" class="chat-container flex flex-col mt-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-start mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="p-3 text-sm shadow-md ai-message flex items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${t('form_greeting')} ${intakeData.selectedScheme.name}.</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${chatBubbles}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Input Field for current question --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="chat-input-area" class="mt-4 pt-4 border-t border-gray-100 ${isFinished ? 'hidden' : ''}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex space-x-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" id="user-chat-input" placeholder="${t('type_answer')}" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" onkeydown="handleChatInput(event)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="sendChatMessage()" class="flex-shrink-0 bg-indigo-600 p-3 rounded-lg text-white hover:bg-indigo-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="alertMessage(t('save_progress'), 'The current state of your form filling conversation has been saved.')" class="mt-3 w-full py-2 bg-gray-200 text-gray-700 rounded-lg text-sm hover:bg-gray-300 transition"&gt;${t('save_progress')}&lt;/button&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Added Exit to Main Menu link --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-2 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="#" onclick="navigateTo(screens.MAIN_MENU)" class="text-sm font-semibold text-gray-500 hover:text-gray-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${t('exit_to_menu')}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const chatBubblesDiv = document.getElementById('chat-bubbles');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (chatBubblesDiv) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setTimeout(() =&gt; chatBubblesDiv.scrollTop = chatBubblesDiv.scrollHeight, 100);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (isFinished) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mainActionButton.textContent = t('review_submit');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mainActionButton.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mainActionButton.onclick = () =&gt; navigateTo(screens.REVIEW_SUBMIT);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getChatHistory(maxIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const formFields = intakeData.currentFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const history = [];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; formFields.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const field = formFields[i];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (i &lt;= maxIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Use prompt_key here</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history.push({ speaker: 'ai', prompt_key: field.prompt_key, jargon: field.jargon, id: field.id });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (intakeData[field.id] &amp;&amp; i &lt; maxIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>history.push({ speaker: 'user', text: intakeData[field.id] });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return history;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleChatInput(event) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (event.key === 'Enter') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>sendChatMessage();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function sendChatMessage() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const formFields = intakeData.currentFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const inputField = document.getElementById('user-chat-input');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const message = inputField.value.trim();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (message === '') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>alertMessage(t('type_answer'), 'Please provide an answer to proceed with the form filling.');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentChatIndex = intakeData.chatQuestionIndex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const currentQuestionId = formFields[currentChatIndex].id;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Store User's simple response using the dynamic ID</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData[currentQuestionId] = message;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Advance to the next question</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.chatQuestionIndex++;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>inputField.value = ''; // Clear input field</p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 7: REVIEW &amp; SUBMISSION (Previously Stage 6) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderReviewAndSubmit() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const formFields = intakeData.currentFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.textContent = t('complete_app');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.onclick = handleMainAction; // Will check consent inside handleMainAction</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let reviewRows = formFields.map(field =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const simpleAnswer = intakeData[field.id] || 'Not Answered';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Use prompt_key here, and remove the colon/question mark for cleaner display</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const questionText = t(field.prompt_key).split(/[?:!]/)[0].trim();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const mappedValue = field.mappedValue || simpleAnswer;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;tr class="border-b hover:bg-gray-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td class="p-3 font-medium text-gray-900"&gt;${questionText}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td class="p-3"&gt;${simpleAnswer}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td class="p-3 text-sm font-mono bg-gray-50 text-gray-700"&gt;${mappedValue}&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;td class="p-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="editField('${field.id}')" class="text-indigo-600 hover:text-indigo-800 text-sm"&gt;${t('edit')}&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/td&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-center p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-extrabold text-gray-900"&gt;✅ ${t('review_submit')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-gray-600 mt-2"&gt;${t('review_prompt')} &lt;span class="font-semibold text-indigo-600"&gt;${intakeData.selectedScheme.name}&lt;/span&gt;.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4 overflow-x-auto rounded-lg shadow-md border border-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;table class="min-w-full divide-y divide-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;thead class="bg-indigo-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"&gt;${t('table_question')}&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"&gt;${t('table_simple_answer')}&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"&gt;${t('table_mapped_data')}&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;th class="p-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"&gt;${t('table_action')}&lt;/th&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/thead&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;tbody class="bg-white divide-y divide-gray-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>${reviewRows}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/tbody&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label class="flex items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="checkbox" id="privacy-consent" ${intakeData.privacyConsent ? 'checked' : ''} onchange="intakeData.privacyConsent = this.checked" class="mt-1 h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="ml-3 text-sm text-gray-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="font-bold"&gt;${t('data_consent')}&lt;/span&gt; ${t('consent_text')}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mt-4 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" onclick="navigateTo(screens.FORM_FILLING)" class="text-sm font-semibold text-gray-500 hover:text-gray-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&amp;lt; ${t('go_back_form')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function editField(fieldId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const formFields = intakeData.currentFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Find the index of the field to edit</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const indexToEdit = formFields.findIndex(f =&gt; f.id === fieldId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (indexToEdit !== -1) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Set the chat index back to the question before the one to edit</p>
+<p class="p1"><span class="Apple-converted-space">                </span>intakeData.chatQuestionIndex = indexToEdit;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Clear the answer for the field being edited and all subsequent fields</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for(let i = indexToEdit; i &lt; formFields.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>intakeData[formFields[i].id] = null;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigateTo(screens.FORM_FILLING);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function submitApplication() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.disabled = true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainActionButton.textContent = 'Securely Transmitting Data...'; // This part remains English as a technical status update</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Simulate secure transmission time</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.log('Final Submission Data:', JSON.stringify(intakeData, null, 2));</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navigateTo(screens.CONFIRMATION);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 1500);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STAGE 8: CONFIRMATION/IMPACT (Previously Stage 7) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderConfirmation() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-8 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;svg class="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-3xl font-bold text-gray-800 mt-4"&gt;🎉 ${t('app_complete')}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-gray-600 mt-2"&gt;${intakeData.selectedScheme.name} ${t('app_submitted').replace('[SCHEME_NAME]', '')}&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="font-bold text-blue-800"&gt;${t('next_steps')}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;ul class="list-disc list-inside text-sm text-blue-700 mt-1 space-y-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;${t('next_step_1')}&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;li&gt;${t('next_step_2').replace('###', Math.floor(Math.random() * 900) + 100)}&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mt-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-xl font-bold text-indigo-700"&gt;${t('social_impact')}&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-3xl font-extrabold text-indigo-900 mt-2"&gt;4,501&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-sm text-gray-600"&gt;${t('social_impact_msg')}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="navigateTo(screens.MAIN_MENU)" class="mt-8 py-3 px-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-300"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${t('return_to_menu')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contentDiv.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- NAVIGATION HELPER ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function navigateTo(screenId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentStage = screenId;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- INITIALIZATION ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.onload = function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Set initial form fields to schemes for demo purposes</p>
+<p class="p1"><span class="Apple-converted-space">            </span>intakeData.currentFormFields = schemeFormFields;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Pre-fill mock data for review screen demo:</p>
+<p class="p1"><span class="Apple-converted-space">            </span>schemeFormFields.forEach(field =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>intakeData[field.id] = field.simpleAnswer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Start at the Welcome Screen</p>
+<p class="p1"><span class="Apple-converted-space">            </span>render();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
